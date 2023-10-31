@@ -1,11 +1,42 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import * as BABYLON from 'babylonjs'
+import 'babylonjs-loaders'
+import {useEffect} from 'react';
 
-export default function BabylonScene() {
-    return (
-        <div className="container-fluid p-2 text-center">
-            <button type="button" className="btn btn-success">
-                Babylon Scene
-            </button>
-        </div>
-    )
+const BabylonScene = () => {
+    useEffect(() => {
+        const canvas = document.getElementById('babylon-canvas');
+        const engine = new BABYLON.Engine(canvas, true);
+        const scene = new BABYLON.Scene(engine);
+    
+        // Create a camera
+        const camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene);
+        camera.setTarget(BABYLON.Vector3.Zero());
+    
+        // Attach the camera to the canvas
+        camera.attachControl(canvas, true);
+    
+        // Create a light source
+        const light = new BABYLON.PointLight('light', new BABYLON.Vector3(0, 5, -5), scene);
+    
+        // Create a sphere
+        const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2 }, scene);
+    
+        // Set sphere position
+        sphere.position = new BABYLON.Vector3(0, 0, 0);
+    
+        // Set up your Babylon.js scene here
+    
+        engine.runRenderLoop(() => {
+          scene.render();
+        });
+    
+        return () => {
+          engine.dispose();
+        };
+    }, []);
+
+    return <canvas style={{height: "100%", width: "100%"}} id="babylon-canvas" />;
 }
+
+export default BabylonScene;
