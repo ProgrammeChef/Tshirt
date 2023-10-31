@@ -7,6 +7,8 @@ const BabylonScene = () => {
     useEffect(() => {
         const canvas = document.getElementById('babylon-canvas');
         const engine = new BABYLON.Engine(canvas, true);
+
+        // From here, the things are same as normal Babylon js!
         const scene = new BABYLON.Scene(engine);
     
         // Create a camera
@@ -19,16 +21,16 @@ const BabylonScene = () => {
         // Create a light source
         const light = new BABYLON.PointLight('light', new BABYLON.Vector3(0, 5, -5), scene);
     
-        // Create a sphere
-        const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2 }, scene);
+        // Import the .glb file
+        BABYLON.SceneLoader.ImportMesh('', './tshirt.glb', '', scene, (meshes) => {
+          // Position, scale, or modify the imported meshes if needed
+          // For example, you can iterate through the `meshes` array and apply transformations
     
-        // Set sphere position
-        sphere.position = new BABYLON.Vector3(0, 0, 0);
+          // Set up your Babylon.js scene here
     
-        // Set up your Babylon.js scene here
-    
-        engine.runRenderLoop(() => {
-          scene.render();
+          engine.runRenderLoop(() => {
+            scene.render();
+          });
         });
     
         return () => {
