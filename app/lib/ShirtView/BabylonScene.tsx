@@ -22,7 +22,7 @@ const BabylonScene = () => {
         const light = new BABYLON.PointLight('light', new BABYLON.Vector3(0, 5, -5), scene);
     
         // Import the .glb file
-        BABYLON.SceneLoader.ImportMesh('', './tshirt.glb', '', scene, (meshes) => {
+        BABYLON.SceneLoader.ImportMesh('', './mar.glb', '', scene, (meshes) => {
           // Position, scale, or modify the imported meshes if needed
           // For example, you can iterate through the `meshes` array and apply transformations
     
