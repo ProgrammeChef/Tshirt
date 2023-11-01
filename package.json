@@ -10,7 +10,13 @@
   },
   "dependencies": {
     "babylonjs": "^6.27.1",
+    "babylonjs-gui": "^6.27.1",
     "babylonjs-loaders": "^6.27.1",
+    "babylonjs-materials": "^6.27.1",
+    "babylonjs-post-process": "^6.27.1",
+    "babylonjs-procedural-textures": "^6.27.1",
+    "babylonjs-serializers": "^6.27.1",
+    "babylonjs-viewer": "^6.27.1",
     "bootstrap": "^5.3.2",
     "next": "14.0.1",
     "react": "^18",

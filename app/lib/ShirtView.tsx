@@ -16,7 +16,7 @@ const ShirtView = () => {
 
     return (
         <div className="row">
-            <div className = "col-3">
+            <div className = "col-3 p-2">
                 <GLBLoad fileChangedCallback = {fileChanged} />
             </div>
             <div className = "col-9">
