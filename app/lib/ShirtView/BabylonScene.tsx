@@ -3,7 +3,7 @@ import * as BABYLON from 'babylonjs'
 import 'babylonjs-loaders'
 import {useEffect} from 'react';
 
-const BabylonScene = () => {
+const BabylonScene = (props) => {
     useEffect(() => {
         const canvas = document.getElementById('babylon-canvas');
         const engine = new BABYLON.Engine(canvas, true);
@@ -22,7 +22,12 @@ const BabylonScene = () => {
         const light = new BABYLON.PointLight('light', new BABYLON.Vector3(0, 5, -5), scene);
     
         // Import the .glb file
-        BABYLON.SceneLoader.ImportMesh('', './mar.glb', '', scene, (meshes) => {
+        const file = props.file;
+        console.log("BabylonScene.tsx");
+        console.log(file);
+        if (file !== "" && file !== "./undefined") {
+          console.log("yes", file);
+          BABYLON.SceneLoader.ImportMesh('', file, '', scene, (meshes) => {
           // Position, scale, or modify the imported meshes if needed
           // For example, you can iterate through the `meshes` array and apply transformations
     
@@ -32,6 +37,20 @@ const BabylonScene = () => {
             scene.render();
           });
         });
+        }
+        else {
+          console.log("no");
+          BABYLON.SceneLoader.ImportMesh('', "./mar.glb", '', scene, (meshes) => {
+          // Position, scale, or modify the imported meshes if needed
+          // For example, you can iterate through the `meshes` array and apply transformations
+    
+          // Set up your Babylon.js scene here
+    
+          engine.runRenderLoop(() => {
+            scene.render();
+          });
+        });
+        }
     
         return () => {
           engine.dispose();
