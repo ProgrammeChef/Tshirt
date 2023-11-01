@@ -4,13 +4,9 @@ const GLBLoad = (props) => {
     const glbFileRef = useRef(null);
 
     const handleFileChange = () => {
-        let file = null;
-        if (glbFileRef.current !== null) {
-            file = glbFileRef.current.files[0];
-        }
+        const file = glbFileRef.current.files[0];
         if (file) {
-            
-            props.fileChangedCallback(file);
+                props.fileChangedCallback(file);
         }
     }
 

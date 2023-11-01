@@ -6,12 +6,10 @@ const ShirtView = () => {
     const [file, setFile] = useState("");
 
     const fileChanged = (file) => {
-        console.log("ShirtView Component Updated");
         setFile(file);
     }
 
     useEffect(() => {
-        console.log(file.name);
     }, [file]);
 
     return (
@@ -20,7 +18,7 @@ const ShirtView = () => {
                 <GLBLoad fileChangedCallback = {fileChanged} />
             </div>
             <div className = "col-9">
-                <BabylonScene key={file.name} file={`./${file.name}`}/>
+                <BabylonScene key={file} file={file}/>
             </div>
         </div>
     )
