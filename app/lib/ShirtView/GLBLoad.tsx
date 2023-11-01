@@ -13,7 +13,7 @@ const GLBLoad = (props) => {
 
     return (
         <div className="mb-3">
-            <label className="form-label">Please choose GLB file.</label>
+            <label className="form-label">Choose GLB file</label>
             <input className="form-control" type="file" ref={glbFileRef} onChange={handleFileChange} />
         </div>
     )

@@ -38,9 +38,10 @@ const BabylonScene = (props) => {
           });
         });
         }
+
         else {
           console.log("no");
-          BABYLON.SceneLoader.ImportMesh('', "./mar.glb", '', scene, (meshes) => {
+          BABYLON.SceneLoader.ImportMesh('', "./default.glb", '', scene, (meshes) => {
           // Position, scale, or modify the imported meshes if needed
           // For example, you can iterate through the `meshes` array and apply transformations
     
@@ -57,7 +58,13 @@ const BabylonScene = (props) => {
         };
     }, []);
 
-    return <canvas style={{height: "100%", width: "100%"}} id="babylon-canvas" />;
+    return (
+      <div className = "card shadow-sm">
+        <div className = "card-body">
+          <canvas style={{height: "100%", width: "100%"}} id="babylon-canvas" />
+        </div>
+      </div>
+    );
 }
 
 export default BabylonScene;

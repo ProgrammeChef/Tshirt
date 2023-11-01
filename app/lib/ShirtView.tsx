@@ -15,9 +15,13 @@ const ShirtView = () => {
     }, [file]);
 
     return (
-        <div>
-           <BabylonScene key={file.name} file={`./${file.name}`}/>
-           <GLBLoad fileChangedCallback = {fileChanged} />
+        <div className="row">
+            <div className = "col-3">
+                <GLBLoad fileChangedCallback = {fileChanged} />
+            </div>
+            <div className = "col-9">
+                <BabylonScene key={file.name} file={`./${file.name}`}/>
+            </div>
         </div>
     )
 }
