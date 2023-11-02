@@ -4,6 +4,33 @@ import 'babylonjs-loaders'
 import {useEffect} from 'react';
 
 const BabylonScene = (props) => {
+
+    // mesh: Mesh
+    // textures: texture file names array
+    // scene: scene
+    const applyMaterialFront = (mesh, textures, scene) => {
+      const meshFront = scene.getMeshByID("50_primitive3");
+      // Create the fabric texture material
+      const materialFabric = new BABYLON.StandardMaterial("fabric", scene);
+      materialFabric.diffuseTexture = new BABYLON.Texture(textures[0], scene);
+
+      if (textures.length === 2) {
+        // Create the logo texture material
+        const materialLogo = new BABYLON.StandardMaterial("logo", scene);
+        materialLogo.diffuseTexture = new BABYLON.Texture(textures[1], scene);
+
+        // Apply Multi Materials
+        const multiMaterial = new BABYLON.MultiMaterial("multiMaterial", scene);
+        multiMaterial.subMaterials.push(materialLogo);
+        multiMaterial.subMaterials.push(materialFabric);
+
+        meshFront.material = multiMaterial;
+      }
+      else {
+        meshFront.material = materialFabric;
+      }
+    }
+
     useEffect(() => {
         const canvas = document.getElementById('babylon-canvas');
         const engine = new BABYLON.Engine(canvas, true);
@@ -14,8 +41,7 @@ const BabylonScene = (props) => {
         const scene = new BABYLON.Scene(engine);
     
         // Create a camera
-        const camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene);
-        camera.setTarget(BABYLON.Vector3.Zero());
+        var camera = new BABYLON.ArcRotateCamera("camera", BABYLON.Tools.ToRadians(90), BABYLON.Tools.ToRadians(65), 10, BABYLON.Vector3.Zero(), scene);
     
         // Attach the camera to the canvas
         camera.attachControl(canvas, true);
@@ -50,17 +76,10 @@ const BabylonScene = (props) => {
           // Set up your Babylon.js scene here
 
           const mesh = meshes[0];
+          
+          mesh.position = new BABYLON.Vector3(0, -1.5, 0);
 
-          const meshFront = scene.getMeshByID("50_primitive3");
-          const materialFront = new BABYLON.StandardMaterial('materialFront', scene);
-          // Create a texture from the JPG file
-          const textureFront = new BABYLON.Texture("fabric.jpg", scene);
-
-          // Assign the texture to the material
-          materialFront.diffuseTexture = textureFront;
-
-          // Apply the material to the front mesh
-          meshFront.material = materialFront;
+          applyMaterialFront(mesh, ["./fabric.jpg", "./tshirtlogo.jpg"], scene);
         });
         }
 
