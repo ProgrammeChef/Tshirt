@@ -8,7 +8,9 @@ const BabylonScene = (props) => {
         const canvas = document.getElementById('babylon-canvas');
         const engine = new BABYLON.Engine(canvas, true);
 
-        // From here, the things are same as normal Babylon js!
+        // ============================================ Start Playground ============================================
+        // From here, the things are same as normal Babylon js as babylonjs playground.
+
         const scene = new BABYLON.Scene(engine);
     
         // Create a camera
@@ -23,21 +25,18 @@ const BabylonScene = (props) => {
     
         // Import the .glb file
         const file = props.file;
-        console.log("BabylonScene.tsx");
-        console.log(file);
+
         if (file !== "" && file !== "./undefined") {
           console.log("yes", file);
+
           BABYLON.SceneLoader.ImportMesh('', file, '', scene, (meshes) => {
-          // Position, scale, or modify the imported meshes if needed
-          // For example, you can iterate through the `meshes` array and apply transformations
-    
-          // Set up your Babylon.js scene here
-    
-          engine.runRenderLoop(() => {
-            scene.render();
+            // Position, scale, or modify the imported meshes if needed
+            // For example, you can iterate through the `meshes` array and apply transformations
+      
+            // Set up your Babylon.js scene here
           });
-        });
         }
+      
 
         else {
           console.log("no");
@@ -46,12 +45,14 @@ const BabylonScene = (props) => {
           // For example, you can iterate through the `meshes` array and apply transformations
     
           // Set up your Babylon.js scene here
-    
-          engine.runRenderLoop(() => {
-            scene.render();
-          });
         });
         }
+
+        // ============================================ End Playground ============================================
+
+        engine.runRenderLoop(() => {
+          scene.render();
+        });
     
         return () => {
           engine.dispose();
