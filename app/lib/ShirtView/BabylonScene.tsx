@@ -4,6 +4,52 @@ import 'babylonjs-loaders'
 import {useEffect} from 'react';
 
 const BabylonScene = (props) => {
+    // mesh: Mesh
+    // texture: texture file name
+    // scene: scene
+    const applyMaterialSleeve = (mesh, texture, scene) => {
+      const meshFront = scene.getMeshByID("50_primitive0");
+      // Create the fabric texture material
+      const materialFabric = new BABYLON.StandardMaterial("fabric", scene);
+      materialFabric.diffuseTexture = new BABYLON.Texture(texture, scene);
+      meshFront.material = materialFabric;
+    }
+
+    // mesh: Mesh
+    // texture: texture file name
+    // scene: scene
+    const applyMaterialSewingThreads = (mesh, texture, scene) => {
+      const meshFront = scene.getMeshByID("50_primitive1");
+      // Create the fabric texture material
+      const materialFabric = new BABYLON.StandardMaterial("fabric", scene);
+      materialFabric.diffuseTexture = new BABYLON.Texture(texture, scene);
+      meshFront.material = materialFabric;
+    }
+
+    // mesh: Mesh
+    // textures: texture file names array
+    // scene: scene
+    const applyMaterialBack = (mesh, textures, scene) => {
+      const meshFront = scene.getMeshByID("50_primitive2");
+      // Create the fabric texture material
+      const materialFabric = new BABYLON.StandardMaterial("fabric", scene);
+      materialFabric.diffuseTexture = new BABYLON.Texture(textures[0], scene);
+
+      if (textures.length === 2) {
+        // Create the logo texture material
+        const materialLogo = new BABYLON.StandardMaterial("logo", scene);
+        materialLogo.diffuseTexture = new BABYLON.Texture(textures[1], scene);
+
+        // Apply Multi Materials
+        const multiMaterial = new BABYLON.MultiMaterial("multiMaterial", scene);
+        multiMaterial.subMaterials.push(materialLogo);
+        multiMaterial.subMaterials.push(materialFabric);
+        meshFront.material = multiMaterial;
+      }
+      else {
+        meshFront.material = materialFabric;
+      }
+    }
 
     // mesh: Mesh
     // textures: texture file names array
@@ -23,12 +69,22 @@ const BabylonScene = (props) => {
         const multiMaterial = new BABYLON.MultiMaterial("multiMaterial", scene);
         multiMaterial.subMaterials.push(materialLogo);
         multiMaterial.subMaterials.push(materialFabric);
-
         meshFront.material = multiMaterial;
       }
       else {
         meshFront.material = materialFabric;
       }
+    }
+
+    // mesh: Mesh
+    // texture: texture file name
+    // scene: scene
+    const applyMaterialNeckline = (mesh, texture, scene) => {
+      const meshFront = scene.getMeshByID("50_primitive4");
+      // Create the fabric texture material
+      const materialFabric = new BABYLON.StandardMaterial("fabric", scene);
+      materialFabric.diffuseTexture = new BABYLON.Texture(texture, scene);
+      meshFront.material = materialFabric;
     }
 
     useEffect(() => {
@@ -77,9 +133,14 @@ const BabylonScene = (props) => {
 
           const mesh = meshes[0];
           
-          mesh.position = new BABYLON.Vector3(0, -1.5, 0);
+          mesh.scaling = new BABYLON.Vector3(20, 20, 20);
+          mesh.position = new BABYLON.Vector3(0, -30, 0);
 
+          applyMaterialSleeve(mesh, "./fabric.jpg", scene);
+          applyMaterialSewingThreads(mesh, "./fabric.jpg", scene);
           applyMaterialFront(mesh, ["./fabric.jpg", "./tshirtlogo.jpg"], scene);
+          applyMaterialBack(mesh, ["./fabric.jpg"], scene);
+          applyMaterialNeckline(mesh, "./fabric.jpg", scene);
         });
         }
 
