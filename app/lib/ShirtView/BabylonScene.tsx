@@ -20,8 +20,11 @@ const BabylonScene = (props) => {
         // Attach the camera to the canvas
         camera.attachControl(canvas, true);
     
-        // Create a light source
-        const light = new BABYLON.PointLight('light', new BABYLON.Vector3(0, 5, -5), scene);
+        // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+        // Default intensity is 1. Let's dim the light a small amount
+        light.intensity = 0.7;
     
         // Import the .glb file
         const file = props.file;
@@ -45,6 +48,19 @@ const BabylonScene = (props) => {
           // For example, you can iterate through the `meshes` array and apply transformations
     
           // Set up your Babylon.js scene here
+
+          const mesh = meshes[0];
+
+          const meshFront = scene.getMeshByID("50_primitive3");
+          const materialFront = new BABYLON.StandardMaterial('materialFront', scene);
+          // Create a texture from the JPG file
+          const textureFront = new BABYLON.Texture("fabric.jpg", scene);
+
+          // Assign the texture to the material
+          materialFront.diffuseTexture = textureFront;
+
+          // Apply the material to the front mesh
+          meshFront.material = materialFront;
         });
         }
 
