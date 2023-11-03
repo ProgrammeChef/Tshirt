@@ -6,11 +6,20 @@
     "start": "next start"
   },
   "dependencies": {
+    "@babylonjs/loaders": "^6.28.0",
+    "babylonjs": "^6.28.0",
+    "babylonjs-loaders": "^6.28.0",
+    "formidable": "^1.2.2",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/formidable": "^3.4.4",
+    "@types/react": "18.2.34",
+    "typescript": "5.2.2"
   }
 }
